@@ -7,6 +7,11 @@ $decodedData = urldecode($data); // Decode URL-encoded data
 $timestamp = date('c'); // Timestamp of the request
 $ipAddress = $_SERVER['REMOTE_ADDR']; // IP address of the request sender
 
+// Format JSON data if present
+if (strpos($decodedData, '{') === 0) {
+    $decodedData = json_encode(json_decode($decodedData), JSON_PRETTY_PRINT);
+}
+
 // Log entry format
 $logEntry = "Timestamp: {$timestamp}\nIP Address: {$ipAddress}\nData:\n {$decodedData}\n------------------------\n";
 
