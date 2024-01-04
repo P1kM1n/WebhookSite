@@ -1,3 +1,5 @@
+THIS PROJECT IS IN ACTIVE DEVELOPMENT (until I forget it exists). More features will be added as I use the project more :)
+
 Very easy to use and simple webhook to host on your web server. Only requirement is you have php installed (which you automatically should).
 This is a basic PHP-based webhook logger with a minimal web interface. It logs incoming webhook data along with timestamps and IP addresses for easy tracking.
 
