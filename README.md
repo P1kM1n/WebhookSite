@@ -5,11 +5,14 @@ This is a basic PHP-based webhook logger with a minimal web interface. It logs i
 1. Copy all files except for .idea into your main server directory
 2. thats pretty much it lol.
 
+# Features
+This section will be updated in the future.
+
 ## Resetting the Log
 Click the "Reset Log" button on the web interface (index.php).
 This will clear the log file (webhook.log).
 
-## Additional Details:
+## Formatting:
 Timestamp Format: Each log entry includes a timestamp in the ISO 8601 format (e.g., 2022-01-04T12:34:56+00:00).
 IP Address: The IP address of the sender is logged along with the data.
 
