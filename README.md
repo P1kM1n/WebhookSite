@@ -1,11 +1,9 @@
-THIS PROJECT IS IN ACTIVE DEVELOPMENT (until I forget it exists). More features will be added as I use the project more :)
-
-Very easy to use and simple webhook to host on your web server. Only requirement is you have php installed (which you automatically should).
-This is a basic PHP-based webhook logger with a minimal web interface. It logs incoming webhook data along with timestamps and IP addresses for easy tracking.
+This project is a simple PHP-based webhook & logger with an easy to use web interface. It logs incoming webhook data along with timestamps and IP addresses for easy tracking.
 
 # How to Install
-1. Copy all files except for .idea into your main server directory
-2. thats pretty much it lol.
+1. clone or download the repository into a spare folder
+2. Copy all files except for .idea into your main server directory
+3. your website and hook will now be up and running!
 
 # Features
 This section will be updated in the future.
@@ -17,6 +15,12 @@ This will clear the log file (webhook.log).
 ## Formatting:
 Timestamp Format: Each log entry includes a timestamp in the ISO 8601 format (e.g., 2022-01-04T12:34:56+00:00).
 IP Address: The IP address of the sender is logged along with the data.
+
+## Date Filtering:
+Filter log entries by specifying start and end dates. This displays the entire log entry for each matching timestamp within the specified date range.
+
+## Downloading Log
+Click the "Download Log" button to download the entire log file (webhook.log).
 
 # How to Send Data
 
@@ -66,6 +70,9 @@ You can send data to the webhook using various methods. Here are examples using 
   ```
 
 Replace http://your-webhook-url/webhook.php with the actual URL of your deployed webhook endpoint.
+
+# Notes:
+This project is in active development, and more features will be added over time. Contributions and suggestions are welcome!
 
 Feel free to use these examples as templates for integrating the webhook into your projects or testing it with various data formats.
 
