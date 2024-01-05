@@ -36,27 +36,38 @@
             <button type="submit">Download Log</button>
         </form>
 
-        <!-- Display Log Entries -->
+            <!-- Display Log Entries with Navigation Buttons -->
         <pre>
             <?php
             $logContent = file_get_contents(__DIR__ . '/webhook.log');
+            $logEntries = explode("------------------------", $logContent);
+            $totalEntries = count($logEntries);
+            $currentEntry = isset($_GET['entry']) ? intval($_GET['entry']) : 0;
 
-            // Apply Search
-            if (isset($_GET['search']) && $_GET['search'] !== '') {
-                $searchKeyword = htmlspecialchars($_GET['search']);
-                $logContent = performSearch($logContent, $searchKeyword);
+            // Ensure the current entry is within bounds
+            $currentEntry = max(0, min($currentEntry, $totalEntries - 1));
+
+            // Display the current log entry
+            echo $logEntries[$currentEntry];
+
+            // Display Navigation Buttons with Numbers
+            if ($totalEntries > 1) {
+                echo '<div class="navigation-buttons">';
+                if ($currentEntry > 0) {
+                    echo '<a href="?entry=' . ($currentEntry - 1) . '">&#9664; Previous</a>';
+                }
+
+                // Display entry numbers between Previous and Next buttons
+                echo '<span class="entry-number">' . ($currentEntry + 1) . '/' . $totalEntries . '</span>';
+
+                if ($currentEntry < $totalEntries - 1) {
+                    echo '<a href="?entry=' . ($currentEntry + 1) . '">Next &#9654;</a>';
+                }
+                echo '</div>';
             }
-
-            // Apply Date Filtering
-            if (isset($_GET['startDate']) || isset($_GET['endDate'])) {
-                $startDate = isset($_GET['startDate']) ? htmlspecialchars($_GET['startDate']) : null;
-                $endDate = isset($_GET['endDate']) ? htmlspecialchars($_GET['endDate']) : null;
-                $logContent = filterLogByDate($logContent, $startDate, $endDate);
-            }
-
-            echo $logContent;
             ?>
         </pre>
+
     </div>
 </body>
 </html>
