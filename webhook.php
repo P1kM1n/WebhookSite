@@ -14,8 +14,15 @@ http_response_code(200);
 
 // Functions to handle different message types
 function handleNormalMessage($data) {
-    // Add code here to handle normal messages
-    file_put_contents('webhook.log', $data, FILE_APPEND | LOCK_EX);
+    // Extract IP address and timestamp
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+    $timestamp = date('c');
+
+    // Format normal message
+    $formattedMessage = "IP Address: $ipAddress\nTimestamp: $timestamp\n$data\n------------------------\n";
+
+    // Save formatted message to main log
+    file_put_contents('webhook.log', $formattedMessage, FILE_APPEND | LOCK_EX);
 }
 
 function handlePCLog($data) {
