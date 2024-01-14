@@ -11,6 +11,8 @@ if ($isFileUpload) {
     // Determine message type
     if (strpos($data, '[Type: PC Log]') !== false) {
         handlePCLog($data);
+    } elseif (strpos($data, '[Type: PC Info]') !== false) {
+        handlePCInfo($data);
     } else {
         handleNormalMessage($data);
     }
@@ -32,15 +34,28 @@ function handleNormalMessage($data) {
     file_put_contents('webhook.log', $formattedMessage, FILE_APPEND | LOCK_EX);
 }
 
+// Functions to handle different message types
 function handlePCLog($data) {
     // Extract computer name from the header
     preg_match("/\[Computer: (.+?)\]/", $data, $matches);
     $computerName = isset($matches[1]) ? $matches[1] : '';
 
     if ($computerName !== '') {
-        // Save PC log to individual file
+        // Save PC log to individual file using the computer name
         $pcLogFile = "pc_logs/{$computerName}_log.txt";
         file_put_contents($pcLogFile, $data, FILE_APPEND | LOCK_EX);
+    }
+}
+
+function handlePCInfo($data) {
+    // Extract computer name from the header
+    preg_match("/\[Computer: (.+?)\]/", $data, $matches);
+    $computerName = isset($matches[1]) ? $matches[1] : '';
+
+    if ($computerName !== '') {
+        // Save PC Info to individual file using the computer name
+        $pcInfoFile = "pc_info/{$computerName}_info.txt";
+        file_put_contents($pcInfoFile, $data, FILE_APPEND | LOCK_EX);
     }
 }
 

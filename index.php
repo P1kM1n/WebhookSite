@@ -11,6 +11,7 @@
     <ul>
         <li><a href="webhook_viewer.php">Webhook Viewer</a></li>
         <li><a href="pc_log_viewer.php">PC Log Viewer</a></li>
+        <li><a href="pc_info_viewer.php">PC Info Viewer</a></li>
     </ul>
 </body>
 </html>
