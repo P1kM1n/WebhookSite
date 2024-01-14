@@ -7,7 +7,57 @@
     <title>PC Info Viewer</title>
 </head>
 <body>
+    <?php
+    // Function to download the log file
+    function download_log_file($pcInfoFile) {
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($pcInfoFile));
+        readfile($pcInfoFile);
+    }
+
+    // Function to delete the log file
+    function delete_log_file($pcInfoFile) {
+        if (file_exists($pcInfoFile)) {
+            unlink($pcInfoFile);
+        }
+    }
+
+    // Function to get the previous URL
+    function get_previous_url() {
+        return $_SERVER['HTTP_REFERER'];
+    }
+
+    // Initialize $pcInfoFile
+    $pcInfoFile = "";
+
+    // Handle Reset and Download Buttons
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['reset'])) {
+            // Handle Reset button action
+            // Define $pcInfoFile based on the selected PC
+            if (isset($_GET['pc'])) {
+                $selectedPC = $_GET['pc'];
+                $pcInfoFile = "pc_info/{$selectedPC}_info.txt";
+                // Delete the log file
+                delete_log_file($pcInfoFile);
+            }
+            // Redirect back to the previous page
+            header('Location: ' . get_previous_url());
+            exit();
+        }
+    }
+    ?>
+
+    <button onclick="<?php echo 'download_log_file("' . $pcInfoFile . '")'; ?>">Download</button>
+
+    <form method="post" action="">
+        <button type="submit" name="reset">Reset</button>
+    </form>
+
+    <button onclick="window.location.href='<?php echo get_previous_url(); ?>'">Back</button>
+
     <h2>PC Info Viewer</h2>
+
     <?php
     // Add code here to dynamically generate links to individual PC Info pages
     $pcInfoDir = 'pc_info/';
@@ -24,7 +74,6 @@
         echo '<p>No PC Info available.</p>';
     }
 
-    // Add code here to display the content of the selected PC Info
     if (isset($_GET['pc'])) {
         $selectedPC = $_GET['pc'];
         $pcInfoFile = "pc_info/{$selectedPC}_info.txt";
