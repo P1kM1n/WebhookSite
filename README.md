@@ -96,3 +96,23 @@ cURL:
 ```
 curl -X POST -H "Content-Type: text/plain" -H "Type: PC Log" -H "Computer: PC1" -d "[Type: PC Log] [Computer: PC1]\nPC log content here." https://your-website.com/webhook.php
 ```
+HTML form:
+```html
+<form action="https://your-webhook-url/webhook.php" method="post">
+  <input type="text" name="key1" value="value1">
+  <input type="text" name="key2" value="value2">
+  <input type="submit" value="Send to Webhook">
+</form>
+```
+
+Replace https://your-webhook-url/webhook.php with the actual URL of your deployed webhook endpoint.
+
+### Notes
+
+This project is actively developed, and more features will be added over time. Contributions and suggestions are welcome! Use the provided examples as templates for integrating the webhook into your projects or testing it with various data formats.
+
+Happy coding!
+
+Feel free to let me know if there are any further adjustments or if you have additional requests!
+
+I KNOW THIS README MAKES NO SENSE. I am working on it :).
