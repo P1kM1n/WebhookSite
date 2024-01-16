@@ -47,6 +47,7 @@ Custom headers allow you to categorize and distinguish different types of webhoo
 - `[Computer: PC1]`: Specifies the name of the computer providing the information.
 
 Look at the sending examples to see how to include these headers in your requests. The PC Info header helps the system distinguish between PC Logs and PC Info, ensuring proper organization and display.
+The headers are actually very simple and allow you to sort webhook messages across pages in the site. I reccommend using them if you're sending lots of stuff to the webhook.
 
 #### How to Send PC Info Data
 To send PC Info data, include the `[Type: PC Info]` header along with the `[Computer: PC1]` header (replace "PC1" with the actual name of the computer) in your request. Here's an example using JavaScript (fetch):
