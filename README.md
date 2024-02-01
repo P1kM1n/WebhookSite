@@ -4,10 +4,12 @@ This project is a versatile PHP-based webhook and logger system with an easy-to-
 
 ## Table of Contents
 - [Installation](#installation)
-- [Features](#features)
+- [Webhook Features](#features)
     - [Webhook Viewer](#webhook-viewer)
     - [PC Log Viewer](#pc-log-viewer)
     - [PC Info Viewer](#pc-info-viewer)
+    - [How To Use](#how-to-use)
+- [Other Features](#other-features)
 - [How to Send Data](#how-to-send-data)
 
 ## Installation
@@ -38,7 +40,10 @@ The PC Log Viewer organizes logs sent from different devices into separate pages
 ### PC Info Viewer
 The PC Info Viewer organizes information sent with the header `[Type: PC Info]`. Each device's information is accessible through links on the PC Info Viewer page.
 
+
+
 #### Headers
+I WILL UPDATE THIS SECTION
 Custom headers allow you to categorize and distinguish different types of webhook messages. Currently supported headers include:
 
 - `[Type: PC Log]`: Indicates a log message from a computer.
@@ -48,6 +53,13 @@ Custom headers allow you to categorize and distinguish different types of webhoo
 
 Look at the sending examples to see how to include these headers in your requests. The PC Info header helps the system distinguish between PC Logs and PC Info, ensuring proper organization and display.
 The headers are actually very simple and allow you to sort webhook messages across pages in the site. I reccommend using them if you're sending lots of stuff to the webhook.
+
+# Other Features
+
+### Downloads
+There is a downloads page accessible via the landing page which contains a table with files you can download. The files have to uploaded manually (obviously) and then the reference to the file has to be created in the table by editing the downloads.html file. It is good practise to upload the files to a seperate folder as you can see like I have with "file_downloads"
+
+# How to Use
 
 #### How to Send PC Info Data
 To send PC Info data, include the `[Type: PC Info]` header along with the `[Computer: PC1]` header (replace "PC1" with the actual name of the computer) in your request. Here's an example using JavaScript (fetch):
