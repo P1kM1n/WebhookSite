@@ -5,8 +5,9 @@ This project is a versatile PHP-based webhook and logger system with an easy-to-
 ## Table of Contents
 - [Installation](#installation)
 - [Features](#features)
-  - [Webhook Viewer](#webhook-viewer)
-  - [PC Log Viewer](#pc-log-viewer)
+    - [Webhook Viewer](#webhook-viewer)
+    - [PC Log Viewer](#pc-log-viewer)
+    - [PC Info Viewer](#pc-info-viewer)
 - [How to Send Data](#how-to-send-data)
 
 ## Installation
@@ -25,14 +26,6 @@ The Webhook Viewer provides a detailed display of incoming webhook messages with
 - **Download Log:** Download the entire log file using the "Download Log" button.
 - **Navigation Buttons:** Navigate through individual log entries easily.
 
-#### Headers
-Custom headers allow you to categorize and distinguish different types of webhook messages. Currently supported headers include:
-
-- `[Type: PC Log]`: Indicates a log message from a computer.
-- `[Computer: PC1]`: Specifies the name of the computer sending the log.
-
-Look at the cURL code example to see them in actual use.
-
 #### Future Customization
 In future updates, additional customization options for headers will be introduced, providing users with even more control over their webhook messages.
 
@@ -42,54 +35,85 @@ The PC Log Viewer organizes logs sent from different devices into separate pages
 - **PC Log Viewer Landing Page (`pc_log_viewer.php`):** Lists links to individual PC logs.
 - **Individual PC Log Pages (`pc_logs/`):** Dedicated pages for each device, showing the respective log content.
 
-## How to Send Data
+### PC Info Viewer
+The PC Info Viewer organizes information sent with the header `[Type: PC Info]`. Each device's information is accessible through links on the PC Info Viewer page.
+
+#### Headers
+Custom headers allow you to categorize and distinguish different types of webhook messages. Currently supported headers include:
+
+- `[Type: PC Log]`: Indicates a log message from a computer.
+- `[Computer: PC1]`: Specifies the name of the computer sending the log.
+- `[Type: PC Info]`: Indicates information about a computer.
+- `[Computer: PC1]`: Specifies the name of the computer providing the information.
+
+Look at the sending examples to see how to include these headers in your requests. The PC Info header helps the system distinguish between PC Logs and PC Info, ensuring proper organization and display.
+The headers are actually very simple and allow you to sort webhook messages across pages in the site. I reccommend using them if you're sending lots of stuff to the webhook.
+
+#### How to Send PC Info Data
+To send PC Info data, include the `[Type: PC Info]` header along with the `[Computer: PC1]` header (replace "PC1" with the actual name of the computer) in your request. Here's an example using JavaScript (fetch):
+
+```javascript
+// Example data to send PC Info
+// Include Type and Computer headers to distinguish PC Info
+fetch('https://your-webhook-url/webhook.php', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'text/plain',
+    'Custom-Header': 'Header-Value',
+    'Type': 'PC Info',
+    'Computer': 'PC1',  // Replace with the actual PC name
+  },
+  body: 'PC Info content here.',
+})
+  .then(response => console.log('Webhook request sent successfully'))
+  .catch(error => console.error('Error sending webhook request:', error));
+```
+Ensure that you replace "PC1" with the actual name of the computer when sending PC Info data. This way, the system can properly distinguish between PC Logs and PC Info, organizing the data accordingly.
+
+### How to Send Data
 
 You can send data to the webhook using various methods. Below are examples using JavaScript (fetch), cURL, HTTP(s), and HTML forms:
 
-1. **JavaScript (fetch):**
-    ```javascript
-        // Example data to send
-        // Send plain text data using fetch with custom headers
-    fetch('https://your-webhook-url/webhook.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-        'Custom-Header': 'Header-Value',
-      },
-      body: '[Type: PC Log] [Computer: PC1] PC log content here.',
-    })
-      .then(response => console.log('Webhook request sent successfully'))
-      .catch(error => console.error('Error sending webhook request:', error));
-    ```
+JavaScript (fetch):
 
-2. **cURL:**
-    ```bash
-    curl -X POST -H "Content-Type: text/plain" -d "[Type: PC Log] [Computer: PC1]\nPC log content here." https://your-website.com/webhook.php
-    ```
-    As you can see there are two "headers" in use here. The PC Log sorts the webhook message into the pc logging part of the web server and the computer specifies which computer sent the message. This can be customized to your needs.
+```javascript
+// Example data to send
+// Send plain text data using fetch with custom headers
+fetch('https://your-webhook-url/webhook.php', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'text/plain',
+    'Custom-Header': 'Header-Value',
+    'Type': 'PC Log',  // Example Type header for PC Log
+    'Computer': 'PC1',  // Example Computer header for PC Log
+  },
+  body: '[Type: PC Log] [Computer: PC1] PC log content here.',
+})
+  .then(response => console.log('Webhook request sent successfully'))
+  .catch(error => console.error('Error sending webhook request:', error));
+```
 
-3. **HTTP(s):**
-    ```http
-    POST /webhook.php HTTP/1.1
-    Host: your-webhook-url
-    Content-Type: application/json
-    Custom-Header: Header-Value
-    
-    {"key1":"value1","key2":"value2"}
-    ```
+cURL:
+```
+curl -X POST -H "Content-Type: text/plain" -H "Type: PC Log" -H "Computer: PC1" -d "[Type: PC Log] [Computer: PC1]\nPC log content here." https://your-website.com/webhook.php
+```
+HTML form:
+```html
+<form action="https://your-webhook-url/webhook.php" method="post">
+  <input type="text" name="key1" value="value1">
+  <input type="text" name="key2" value="value2">
+  <input type="submit" value="Send to Webhook">
+</form>
+```
 
-4. **HTML form:**
-    ```html
-    <form action="https://your-webhook-url/webhook.php" method="post">
-      <input type="text" name="key1" value="value1">
-      <input type="text" name="key2" value="value2">
-      <input type="submit" value="Send to Webhook">
-    </form>
-    ```
+Replace https://your-webhook-url/webhook.php with the actual URL of your deployed webhook endpoint.
 
-Replace `https://your-webhook-url/webhook.php` with the actual URL of your deployed webhook endpoint.
+### Notes
 
-## Notes
 This project is actively developed, and more features will be added over time. Contributions and suggestions are welcome! Use the provided examples as templates for integrating the webhook into your projects or testing it with various data formats.
 
 Happy coding!
+
+Feel free to let me know if there are any further adjustments or if you have additional requests!
+
+I KNOW THIS README MAKES NO SENSE. I am working on it :).

@@ -1,39 +1,106 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li, button, form {
     margin: 0;
     padding: 0;
 }
 
-.log-window {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+}
+
+h1, h2, h3 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 36px;
 }
 
 h2 {
-    color: #333;
+    font-size: 28px;
 }
 
-pre {
-    white-space: pre-wrap;
+h3 {
+    font-size: 24px;
 }
 
-.navigation-buttons {
-    margin-top: 10px;
+p {
+    font-size: 20px;
 }
 
-.navigation-buttons a {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 5px;
+/* Dark theme */
+ul {
+    list-style: none;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+/* Buttons */
+button, form button {
     background-color: #3498db;
     color: #fff;
-    text-decoration: none;
-    border-radius: 3px;
+    font-size: 16px; /* Adjusted font size */
+    font-weight: bold;
+    padding: 8px 16px; /* Adjusted padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Added margin to separate buttons */
 }
 
-.navigation-buttons a:hover {
+button:hover, form button:hover {
     background-color: #2980b9;
+}
+
+/* Log content */
+.log-window {
+    font-family: 'Courier New', monospace;
+}
+
+/* Left-align content */
+body, h2 {
+    text-align: left;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    button, form button {
+        font-size: 14px; /* Adjusted font size for smaller screens */
+        padding: 6px 12px; /* Adjusted padding for smaller screens */
+    }
 }
