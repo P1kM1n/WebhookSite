@@ -9,8 +9,8 @@ This project is a versatile PHP-based webhook and logger system with an easy-to-
     - [PC Log Viewer](#pc-log-viewer)
     - [PC Info Viewer](#pc-info-viewer)
     - [How To Use](#how-to-use)
-- [Other Features](#other-features)
 - [How to Send Data](#how-to-send-data)
+- [Other Features](#other-features)
 
 ## Installation
 1. Clone or download the repository into a spare folder.
@@ -28,61 +28,29 @@ The Webhook Viewer provides a detailed display of incoming webhook messages with
 - **Download Log:** Download the entire log file using the "Download Log" button.
 - **Navigation Buttons:** Navigate through individual log entries easily.
 
-#### Future Customization
-In future updates, additional customization options for headers will be introduced, providing users with even more control over their webhook messages.
-
 ### PC Log Viewer
-The PC Log Viewer organizes logs sent from different devices into separate pages. Each device's logs are accessible through links on the PC Log Viewer page. The structure includes:
-
-- **PC Log Viewer Landing Page (`pc_log_viewer.php`):** Lists links to individual PC logs.
-- **Individual PC Log Pages (`pc_logs/`):** Dedicated pages for each device, showing the respective log content.
+The PC Info Viewer organizes information sent with the header `[Type: PC Info]`. Each device's logs are accessible through links on the PC Log Viewer page. When a link is clicked, the information is shown in a drop-down fashion.
 
 ### PC Info Viewer
-The PC Info Viewer organizes information sent with the header `[Type: PC Info]`. Each device's information is accessible through links on the PC Info Viewer page.
+The PC Info Viewer organizes information sent with the header `[Type: PC Info]`. Each device's information is accessible through links on the PC Info Viewer page.  When a link is clicked, the information is shown in a drop-down fashion.
 
 
 
-#### Headers
-I WILL UPDATE THIS SECTION
-Custom headers allow you to categorize and distinguish different types of webhook messages. Currently supported headers include:
+### Headers
+In future updates, additional customization options for headers will be introduced, providing users with even more control over their webhook messages.
 
+Custom plaintext headers allow you to categorize and distinguish different types of webhook messages. They work by placing plaintext words inside square brackets so that the webhook can sort the messages to different sections of the webhook system based off the headers. Currently supported headers include:
 - `[Type: PC Log]`: Indicates a log message from a computer.
 - `[Computer: PC1]`: Specifies the name of the computer sending the log.
-- `[Type: PC Info]`: Indicates information about a computer.
+  In code this looks like: `"[Type: PC Info] [Computer: {pc_name}] {data_to_send}"` This makes a string with plaintext headers at the front and the webhook message afterwards. As you can see there's two headers. In this circumstance the first header sorts the message to a specific page of the webhook system. The second header specifies which PC the message came from, allowing the system to further sort the message into its own log file. This then makes any future messages of the type "PC Info" from the same PC get appended to that log file.
+- `[Type: PC Logs]`: Indicates information about a computer.
 - `[Computer: PC1]`: Specifies the name of the computer providing the information.
+  Again, same logic as above. Except the message gets sorted to a different page and put in a different log file. This is especially helpful for things such as seperating information grabbing logs from keyboard logs. It also means the keyboard logs are then all stuck together in one nice log file. Neat right?
 
-Look at the sending examples to see how to include these headers in your requests. The PC Info header helps the system distinguish between PC Logs and PC Info, ensuring proper organization and display.
-The headers are actually very simple and allow you to sort webhook messages across pages in the site. I reccommend using them if you're sending lots of stuff to the webhook.
+Look at the sending examples to see how to include these headers in a general message to the webhook (the explanation above is just more specific about it. The PC Info header helps the system distinguish between PC Logs and PC Info, ensuring proper organization and display.
+The headers are actually very simple and allow you to sort webhook messages across pages in the site. I recommend using them if you're sending lots of stuff to the webhook.
 
-# Other Features
-
-### Downloads
-There is a downloads page accessible via the landing page which contains a table with files you can download. The files have to uploaded manually (obviously) and then the reference to the file has to be created in the table by editing the downloads.html file. It is good practise to upload the files to a seperate folder as you can see like I have with "file_downloads"
-
-# How to Use
-
-#### How to Send PC Info Data
-To send PC Info data, include the `[Type: PC Info]` header along with the `[Computer: PC1]` header (replace "PC1" with the actual name of the computer) in your request. Here's an example using JavaScript (fetch):
-
-```javascript
-// Example data to send PC Info
-// Include Type and Computer headers to distinguish PC Info
-fetch('https://your-webhook-url/webhook.php', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'text/plain',
-    'Custom-Header': 'Header-Value',
-    'Type': 'PC Info',
-    'Computer': 'PC1',  // Replace with the actual PC name
-  },
-  body: 'PC Info content here.',
-})
-  .then(response => console.log('Webhook request sent successfully'))
-  .catch(error => console.error('Error sending webhook request:', error));
-```
-Ensure that you replace "PC1" with the actual name of the computer when sending PC Info data. This way, the system can properly distinguish between PC Logs and PC Info, organizing the data accordingly.
-
-### How to Send Data
+# How to Send Data
 
 You can send data to the webhook using various methods. Below are examples using JavaScript (fetch), cURL, HTTP(s), and HTML forms:
 
@@ -119,6 +87,12 @@ HTML form:
 ```
 
 Replace https://your-webhook-url/webhook.php with the actual URL of your deployed webhook endpoint.
+
+
+# Other Features
+
+### Downloads
+There is a downloads page accessible via the landing page which contains a table with files you can download. The files have to uploaded to the website file system to the folder "file_downloads" and then the reference to the file has to be created in the table in downloads.html file.
 
 ### Notes
 
