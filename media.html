@@ -20,17 +20,19 @@
             background-color: black;
         }
         #media {
-            max-width: 100%;
-            max-height: 100%;
+            width: 1920px; /* Width of a standard 1080p monitor */
+            height: auto;
         }
     </style>
 </head>
 <body>
 <div id="media-container">
-    <video id="media" autoplay loop muted>
-        <source src="https://media.tenor.com/mnmu16CGt6QAAAAi/dont-care-idc.mp4" type="video/mp4">
+    <img id="media" src="/assets/Sly.png" alt="GIF">
+    <!-- You can use the <video> element for videos -->
+    <!-- <video id="media" autoplay loop muted>
+        <source src="your-video-source.mp4" type="video/mp4">
         Your browser does not support the video tag.
-    </video>
+    </video> -->
 </div>
 </body>
 </html>
